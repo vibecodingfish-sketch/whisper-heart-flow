@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 
 import sushiCombo from "@/assets/sushi-combo.jpg";
 import matchaFizz from "@/assets/matcha-fizz.jpg";
@@ -15,16 +15,16 @@ import yuzuSpritz from "@/assets/yuzu-spritz.jpg";
 type Category = "todos" | "combinados" | "pratos" | "drinks";
 
 const menuItems = [
-  { name: "Combo Tokyo", desc: "Seleção premium de nigiri e uramaki com peixes nobres", image: sushiCombo, category: "combinados" as const },
-  { name: "Combo Fukushima", desc: "Generosa composição de sushi e sashimi para compartilhar", image: comboFukushima, category: "combinados" as const },
-  { name: "Yakisoba Especial", desc: "Macarrão artesanal salteado com legumes frescos e proteína", image: yakisoba, category: "pratos" as const },
-  { name: "Tempurá de Peixe", desc: "Crocância perfeita com peixe fresco em massa leve", image: tempura, category: "pratos" as const },
-  { name: "Monte Seu Poke", desc: "Sua criação, nossos ingredientes selecionados", image: poke, category: "pratos" as const },
-  { name: "Chop Suey Frango", desc: "Legumes crocantes com frango em molho oriental autoral", image: chopSuey, category: "pratos" as const },
-  { name: "Ceviche Misto", desc: "Frescor cítrico com frutos do mar em harmonia perfeita", image: ceviche, category: "pratos" as const },
-  { name: "Matcha Fizz", desc: "Efervescência delicada com chá verde japonês", image: matchaFizz, category: "drinks" as const },
-  { name: "Sakerinha", desc: "A fusão entre o sakê e a brasilidade em um copo", image: sakerinha, category: "drinks" as const },
-  { name: "Yuzu Spritz", desc: "Citrus japonês com toque refrescante e sofisticado", image: yuzuSpritz, category: "drinks" as const },
+  { name: "Combo Tokyo", desc: "Nigiri e uramaki com peixes nobres", image: sushiCombo, category: "combinados" as const },
+  { name: "Combo Fukushima", desc: "Sushi e sashimi para compartilhar", image: comboFukushima, category: "combinados" as const },
+  { name: "Yakisoba Especial", desc: "Macarrão artesanal salteado", image: yakisoba, category: "pratos" as const },
+  { name: "Tempurá", desc: "Crocância em massa leve", image: tempura, category: "pratos" as const },
+  { name: "Poke Bowl", desc: "Monte sua criação", image: poke, category: "pratos" as const },
+  { name: "Chop Suey", desc: "Legumes crocantes em molho autoral", image: chopSuey, category: "pratos" as const },
+  { name: "Ceviche Misto", desc: "Frescor cítrico e frutos do mar", image: ceviche, category: "pratos" as const },
+  { name: "Matcha Fizz", desc: "Chá verde com efervescência", image: matchaFizz, category: "drinks" as const },
+  { name: "Sakerinha", desc: "Sakê com brasilidade", image: sakerinha, category: "drinks" as const },
+  { name: "Yuzu Spritz", desc: "Citrus japonês refrescante", image: yuzuSpritz, category: "drinks" as const },
 ];
 
 const categories: { key: Category; label: string }[] = [
@@ -42,22 +42,22 @@ const MenuHighlights = () => {
   const filtered = active === "todos" ? menuItems : menuItems.filter((i) => i.category === active);
 
   return (
-    <section id="destaques" className="py-32 lg:py-40 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/20 to-background pointer-events-none" />
+    <section id="destaques" className="py-40 lg:py-52 relative">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-card/30 to-transparent pointer-events-none" />
 
-      <div className="container mx-auto px-6 lg:px-12 relative z-10" ref={ref}>
+      <div className="container mx-auto px-6 lg:px-16 relative z-10" ref={ref}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <p className="text-sm tracking-[0.3em] uppercase text-primary mb-6">
+          <span className="text-[10px] tracking-[0.4em] uppercase text-primary/70 block mb-8">
             Coleção Gastronômica
-          </p>
-          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-medium leading-[1.2]">
-            Nossos <span className="italic text-primary">destaques</span>
+          </span>
+          <h2 className="font-heading text-display-sm font-light">
+            Nossos <em className="text-primary font-light">destaques</em>
           </h2>
         </motion.div>
 
@@ -66,16 +66,16 @@ const MenuHighlights = () => {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex justify-center gap-6 mb-16"
+          className="flex justify-center gap-8 lg:gap-12 mb-20"
         >
           {categories.map((cat) => (
             <button
               key={cat.key}
               onClick={() => setActive(cat.key)}
-              className={`text-sm tracking-widest uppercase transition-all duration-300 pb-2 border-b ${
+              className={`text-[11px] tracking-[0.2em] uppercase transition-all duration-500 pb-3 border-b ${
                 active === cat.key
-                  ? "text-primary border-primary"
-                  : "text-muted-foreground border-transparent hover:text-foreground"
+                  ? "text-foreground border-primary"
+                  : "text-muted-foreground/60 border-transparent hover:text-muted-foreground"
               }`}
             >
               {cat.label}
@@ -83,49 +83,66 @@ const MenuHighlights = () => {
           ))}
         </motion.div>
 
-        {/* Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {filtered.map((item, i) => (
-            <motion.div
-              key={item.name}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 * i }}
-              className="group relative overflow-hidden bg-card border border-border/30 hover:border-primary/30 transition-all duration-500"
-            >
-              {/* Image */}
-              <div className="aspect-square overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  loading="lazy"
-                  width={800}
-                  height={800}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-              </div>
+        {/* Grid — editorial asymmetric */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5 }}
+            className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4"
+          >
+            {filtered.map((item, i) => (
+              <motion.div
+                key={item.name}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.06 * i }}
+                className={`group relative overflow-hidden premium-border ${
+                  i === 0 && filtered.length > 4 ? "col-span-2 lg:col-span-1 row-span-1" : ""
+                }`}
+              >
+                {/* Image */}
+                <div className="aspect-[4/5] overflow-hidden relative">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    loading="lazy"
+                    width={800}
+                    height={1000}
+                    className="w-full h-full object-cover transition-all duration-[1.2s] ease-out group-hover:scale-105"
+                  />
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-700" />
+                </div>
 
-              {/* Info overlay */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background via-background/90 to-transparent">
-                <h3 className="font-heading text-xl font-medium mb-1">{item.name}</h3>
-                <p className="text-sm text-muted-foreground">{item.desc}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                {/* Info */}
+                <div className="absolute bottom-0 left-0 right-0 p-5 lg:p-6">
+                  <h3 className="font-heading text-lg lg:text-xl font-medium tracking-wide mb-1">
+                    {item.name}
+                  </h3>
+                  <p className="text-[12px] text-muted-foreground/60 font-light tracking-wide">
+                    {item.desc}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
 
         {/* CTA */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.8, duration: 0.6 }}
-          className="text-center mt-16"
+          className="text-center mt-20"
         >
           <a
             href="https://pedido.anota.ai/loja/negaisushi"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-10 py-4 border border-primary text-primary font-medium tracking-widest uppercase text-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+            className="inline-block px-10 py-4 border border-primary/30 text-primary/80 text-[11px] font-medium tracking-[0.25em] uppercase hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-500"
           >
             Ver Cardápio Completo
           </a>
