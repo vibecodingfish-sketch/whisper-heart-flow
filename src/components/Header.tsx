@@ -40,7 +40,7 @@ const Header = () => {
       <div className="container mx-auto px-6 lg:px-16">
         <div className="flex items-center justify-between h-20 lg:h-24">
           {/* Logo */}
-          <a href="#inicio" className="flex items-center gap-3">
+          <a href="#inicio" onClick={(e) => handleNavClick(e, "#inicio")} className="flex items-center gap-3">
             <span className="font-heading text-2xl lg:text-3xl font-semibold tracking-wide text-foreground">
               NEGAI
             </span>
@@ -56,6 +56,7 @@ const Header = () => {
               <a
                 key={item.href}
                 href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
                 className="text-[11px] tracking-[0.25em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-500 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-primary after:transition-all after:duration-500 hover:after:w-full"
               >
                 {item.label}
@@ -101,7 +102,7 @@ const Header = () => {
                 <motion.a
                   key={item.href}
                   href={item.href}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={(e) => handleNavClick(e, item.href)}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 * i }}
