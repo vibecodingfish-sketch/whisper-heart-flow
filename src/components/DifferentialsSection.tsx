@@ -1,14 +1,13 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Flame, Eye, GlassWater, MapPin, Truck, Sparkles } from "lucide-react";
 
 const differentials = [
-  { icon: Flame, title: "Cozinha Autoral", desc: "Tradição oriental reinterpretada com identidade própria e ingredientes selecionados." },
-  { icon: Eye, title: "Experiência Visual", desc: "Cada prato é uma composição — visual, aroma e sabor em harmonia." },
-  { icon: GlassWater, title: "Drinks Especiais", desc: "Coquetéis autorais que traduzem a alma oriental em cada dose." },
-  { icon: Sparkles, title: "Ambiente Marcante", desc: "Atmosfera noturna pensada para envolver e criar memórias." },
-  { icon: Truck, title: "Delivery Premium", desc: "A experiência Negai na sua casa, com a mesma apresentação impecável." },
-  { icon: MapPin, title: "Localização Estratégica", desc: "No coração de Barra de Sirinhaém, fácil de encontrar e impossível de esquecer." },
+  { number: "01", title: "Cozinha Autoral", desc: "Tradição oriental reinterpretada com identidade e ingredientes selecionados a dedo." },
+  { number: "02", title: "Experiência Visual", desc: "Cada prato é uma composição — visual, aroma e sabor em harmonia absoluta." },
+  { number: "03", title: "Drinks de Assinatura", desc: "Coquetéis autorais que traduzem a essência oriental em cada dose." },
+  { number: "04", title: "Ambiente Marcante", desc: "Atmosfera noturna criada para envolver e transformar momentos em memórias." },
+  { number: "05", title: "Delivery Premium", desc: "A experiência Negai na sua casa com a mesma apresentação impecável." },
+  { number: "06", title: "Localização Única", desc: "No coração de Barra de Sirinhaém — fácil de encontrar, impossível de esquecer." },
 ];
 
 const DifferentialsSection = () => {
@@ -16,40 +15,43 @@ const DifferentialsSection = () => {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-32 lg:py-40 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/[0.02] to-transparent pointer-events-none" />
-
-      <div className="container mx-auto px-6 lg:px-12 relative z-10" ref={ref}>
+    <section className="py-40 lg:py-52 relative">
+      <div className="container mx-auto px-6 lg:px-16 relative z-10" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-24"
         >
-          <p className="text-sm tracking-[0.3em] uppercase text-primary mb-6">
-            Por Que Negai
-          </p>
-          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-medium">
-            O que nos torna <span className="italic text-primary">únicos</span>
+          <span className="text-[10px] tracking-[0.4em] uppercase text-primary/70 block mb-8">
+            Diferenciais
+          </span>
+          <h2 className="font-heading text-display-sm font-light">
+            O que nos torna <em className="text-primary font-light">únicos</em>
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border/30">
+        {/* Minimal numbered list — editorial */}
+        <div className="max-w-3xl mx-auto">
           {differentials.map((item, i) => (
             <motion.div
-              key={item.title}
+              key={item.number}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 * i }}
-              className="bg-background p-10 lg:p-12 group hover:bg-card transition-colors duration-500"
+              transition={{ duration: 0.6, delay: 0.08 * i }}
+              className="group grid grid-cols-[auto_1fr] gap-8 lg:gap-12 py-8 lg:py-10 border-b border-border/15 first:border-t hover:border-primary/20 transition-colors duration-500"
             >
-              <item.icon
-                size={28}
-                className="text-primary mb-6 group-hover:scale-110 transition-transform duration-300"
-                strokeWidth={1.5}
-              />
-              <h3 className="font-heading text-xl font-medium mb-3">{item.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
+              <span className="font-heading text-sm text-primary/40 pt-1 font-light">
+                {item.number}
+              </span>
+              <div>
+                <h3 className="font-heading text-xl lg:text-2xl font-medium tracking-wide mb-2 group-hover:text-primary/90 transition-colors duration-500">
+                  {item.title}
+                </h3>
+                <p className="text-muted-foreground/50 text-sm leading-relaxed font-light max-w-md">
+                  {item.desc}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>

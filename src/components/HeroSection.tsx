@@ -3,89 +3,97 @@ import heroBg from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
   return (
-    <section id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background */}
+    <section id="inicio" className="relative h-screen flex items-end overflow-hidden">
+      {/* Background with cinematic treatment */}
       <div className="absolute inset-0">
         <img
           src={heroBg}
           alt="Interior do Negai Sushi"
           width={1920}
           height={1080}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/60 to-transparent" />
+        {/* Multi-layer cinematic overlays */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-transparent to-background/40" />
+        <div className="absolute inset-0 bg-background/20" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 lg:px-12 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="max-w-4xl mx-auto"
-        >
-          {/* Tagline */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="text-sm tracking-[0.3em] uppercase text-primary mb-8"
+      {/* Content — anchored to bottom for editorial feel */}
+      <div className="relative z-10 container mx-auto px-6 lg:px-16 pb-20 lg:pb-28">
+        <div className="max-w-5xl">
+          {/* Location pill */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="mb-10"
           >
-            Barra de Sirinhaém PE
-          </motion.p>
+            <span className="text-[10px] tracking-[0.4em] uppercase text-primary/80 border border-primary/20 px-4 py-1.5 inline-block">
+              Barra de Sirinhaém · PE
+            </span>
+          </motion.div>
 
           {/* Headline */}
-          <h1 className="font-heading text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-medium leading-[1.1] mb-8">
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="font-heading text-display font-light leading-[1.05] mb-8"
+          >
             Onde o sabor
             <br />
-            <span className="italic text-primary">encontra presença.</span>
-          </h1>
+            encontra{" "}
+            <em className="text-primary font-light">presença.</em>
+          </motion.h1>
 
           {/* Subtitle */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8, duration: 1 }}
+            className="text-base lg:text-lg text-muted-foreground max-w-lg leading-relaxed mb-14 font-light"
           >
-            Uma experiência oriental sofisticada que vai além do sabor.
-            Cada detalhe pensado para despertar os sentidos.
+            Uma experiência oriental que transcende o paladar.
+            Cada detalhe, uma intenção. Cada visita, uma memória.
           </motion.p>
 
           {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            transition={{ delay: 1, duration: 0.8 }}
+            className="flex flex-col sm:flex-row gap-4"
           >
             <a
               href="https://pedido.anota.ai/loja/negaisushi"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-10 py-4 bg-primary text-primary-foreground font-medium tracking-widest uppercase text-sm hover:bg-primary/90 transition-all duration-300 hover:shadow-[0_0_40px_rgba(193,18,31,0.3)]"
+              className="group px-10 py-4 bg-primary text-primary-foreground text-[11px] font-medium tracking-[0.25em] uppercase transition-all duration-500 hover:shadow-[0_0_60px_-10px_hsla(355,82%,41%,0.4)] hover:bg-primary/90"
             >
               Fazer Pedido
             </a>
             <a
               href="#destaques"
-              className="px-10 py-4 border border-foreground/20 text-foreground font-medium tracking-widest uppercase text-sm hover:border-foreground/50 transition-all duration-300"
+              className="px-10 py-4 border border-foreground/10 text-foreground/70 text-[11px] font-medium tracking-[0.25em] uppercase hover:border-foreground/30 hover:text-foreground transition-all duration-500"
             >
               Explorar Cardápio
             </a>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll line */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        transition={{ delay: 1.8, duration: 1 }}
+        className="absolute bottom-0 right-16 hidden lg:flex flex-col items-center gap-3"
       >
-        <div className="w-[1px] h-16 bg-gradient-to-b from-transparent via-primary/50 to-transparent" />
+        <span className="text-[9px] tracking-[0.3em] uppercase text-muted-foreground/40 [writing-mode:vertical-lr]">
+          Scroll
+        </span>
+        <div className="w-px h-20 bg-gradient-to-b from-primary/30 to-transparent" />
       </motion.div>
     </section>
   );
