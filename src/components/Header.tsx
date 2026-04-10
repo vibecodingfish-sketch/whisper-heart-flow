@@ -22,7 +22,7 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 overflow-visible ${
         scrolled ? "glass-dark border-b border-border/20" : "bg-transparent"
       }`}
     >
