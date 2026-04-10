@@ -1,0 +1,17 @@
+{
+  "name": "Negai Sushi",
+  "short_name": "Negai",
+  "description": "Experiência oriental sofisticada em Barra de Sirinhaém",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#C1121F",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
